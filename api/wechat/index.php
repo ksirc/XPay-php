@@ -227,13 +227,6 @@
             countDown();
         }, 1000);
     }
-    // 过期重新生成二维码
-    ////1-10内随机数
-    //var dir = "/assets/qr/alipay/"+Number(num).toFixed(2)+"/"+"<?php// echo rand(1,10);?>//"+".png";
-    //$("#qr-pic").attr("src", dir);
-    //if ($.cookie('time') == 0){
-    //    $.removeCookie('time');
-    //}
     function countTime() {
         var time = $.cookie('time');
         if (time <= 0) {

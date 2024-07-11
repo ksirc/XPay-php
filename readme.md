@@ -11,6 +11,10 @@
 - ~~支持用户管理，支持查看、导出、删除用户记录~~
 - ~~支持支付记录管理，支持查看、导出、删除支付记录~~
 
+## 测试地址
+
+- 手动输入  <a href="https://xpay.lotl.cn">https://xpay.lotl.cn</a>
+- 自动生成  <a href="https://xpay.lotl.cn/?&nickname=HelloWorld&money=20&serverId=测试服">https://xpay.lotl.cn/?&nickname=HelloWorld&money=20&serverId=测试服</a>
 
 ## 运行环境
 

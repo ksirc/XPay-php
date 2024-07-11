@@ -24,7 +24,7 @@ private  $pass_url = "http://localhost:8088/api/notify.php";
 private $smtp_server = "smtp.qq.com";       //SMTP服务器
 private $smtp_port = 465;                   //SMTP端口
 private $smtp_user = "1324749175@qq.com";    //SMTP用户名
-private $smtp_passwd = "xxxxxxx";   //SMTP密码
+private $smtp_passwd = "xxxxxxxx";   //SMTP密码
 private $smtp_from = "lotlcn@qq.com";        //发件人邮箱
 private $smtp_to = "lotlcn@qq.com";          //收件人邮箱
 

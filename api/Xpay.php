@@ -142,9 +142,9 @@ private $smtp_to = "lotlcn@qq.com";          //收件人邮箱
         $content = str_replace("{device}", $Pay->getDevice(), $content);
         $content = str_replace("{pay_num}", $Pay->getPayNum(), $content);
         $content = str_replace("{time}", date("Y-m-d H:i:s", time()), $content);
-        $content = str_replace("{pass_url}", $this->pass_url. "?pay_id=". $Pay->getPayId(). "&state=1". "&token=". $this->token, $content);
-        $content = str_replace("{fail_url}", $this->pass_url. "?pay_id=". $Pay->getPayId(). "&state=2". "&token=". $this->token, $content);
-        $content = str_replace("{del_url}", $this->pass_url. "?pay_id=". $Pay->getPayId(). "&state=del". "&token=". $this->token, $content);
+        $content = str_replace("{pass_url}", $this->pass_url. "?pay_id=". $Pay->getPayId(). "&state=1"."&email=". $Pay->getEmail(). "&token=". $this->token, $content);
+        $content = str_replace("{fail_url}", $this->pass_url. "?pay_id=". $Pay->getPayId(). "&state=2"."&email=". $Pay->getEmail(). "&token=". $this->token, $content);
+        $content = str_replace("{del_url}", $this->pass_url. "?pay_id=". $Pay->getPayId(). "&state=del"."&email=". $Pay->getEmail(). "&token=". $this->token, $content);
         return $content;
     }
 
@@ -156,6 +156,86 @@ private $smtp_to = "lotlcn@qq.com";          //收件人邮箱
     public function setToken(string $token): void
     {
         $this->token = $token;
+    }
+
+    public function getSmtpTo(): string
+    {
+        return $this->smtp_to;
+    }
+
+    public function setSmtpTo(string $smtp_to): void
+    {
+        $this->smtp_to = $smtp_to;
+    }
+
+    //获取订单金额方法
+    public function get_order_amount($pay_id)
+    {
+        $sql = "SELECT money FROM t_pay WHERE id = '". $pay_id. "'";
+        $conn = $this->connect_db();
+        $result = mysqli_query($conn, $sql);
+        if (!$result) {
+            return null;
+        }
+        $row = mysqli_fetch_assoc($result);
+        $amount = $row['money'];
+        $conn->close();
+        return $amount;
+    }
+
+    //获取订单支付方式方法
+    public function get_order_payment($pay_id)
+    {
+
+        $sql = "SELECT pay_type FROM t_pay WHERE id = '". $pay_id. "'";
+        $conn = $this->connect_db();
+        $result = mysqli_query($conn, $sql);
+        if (!$result) {
+            return null;
+        }
+        $row = mysqli_fetch_assoc($result);
+        $payment = $row['pay_type'];
+        $conn->close();
+        return $payment;
+    }
+
+    //获取订单支付时间方法
+    public function get_order_time($pay_id)
+    {
+
+        $sql = "SELECT time FROM t_pay WHERE id = '". $pay_id. "'";
+        $conn = $this->connect_db();
+        $result = mysqli_query($conn, $sql);
+        if (!$result) {
+            return null;
+        }
+        $row = mysqli_fetch_assoc($result);
+        $time = $row['time'];
+        $conn->close();
+        return $time;
+    }
+
+    //获取订单支付状态方法
+    public function get_order_state($pay_id)
+    {
+
+        $sql = "SELECT state FROM t_pay WHERE id = '". $pay_id. "'";
+        $conn = $this->connect_db();
+        $result = mysqli_query($conn, $sql);
+        if (!$result) {
+            return null;
+        }
+        $row = mysqli_fetch_assoc($result);
+        $state = $row['state'];
+        $conn->close();
+        if ($state == 1){
+            return "支付成功";
+        } else if ($state == 2){
+            return "支付失败";
+        } else if ($state == 3){
+            return "订单取消";
+        }
+        return "审核中";
     }
 
 }

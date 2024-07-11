@@ -286,8 +286,12 @@
     judgeState();
     function judgeState() {
         $.ajax({
-            url:"../state.php?payId="+$.cookie('payId'),
-            type: 'GET',
+            url:"../state.php",
+            type: 'POST',
+            data: {
+                payId: $.cookie('payId')
+            },
+            dataType: 'json',
             success:function (data) {
                 console.log($.cookie('payId'));
                 if(data.success==true){

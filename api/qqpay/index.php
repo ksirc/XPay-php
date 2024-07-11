@@ -213,6 +213,8 @@
         countDown();
         countTime();
     }*/
+
+    //获取收款码
     getQRCode(money);
 
     function getQRCode(money) {

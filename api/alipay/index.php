@@ -311,16 +311,39 @@
     function showRed() {
         $("#myModal").modal('show');
     }
-
+/*
     $('#myModal').on('hide.bs.modal', function () {
-//        if(picName==""||picName==null||picName=="null"||picName=="custom"){
-//            // 自定义金额显示备注提示
-//            $("#reamrkModal").modal('show');
-//        }else{
+       if(picName==""||picName==null||picName=="null"||picName=="custom"){
+           // 自定义金额显示备注提示
+           $("#reamrkModal").modal('show');
+       }else{
         countDown();
         countTime();
-//        }
-    })
+       }
+    })*/
+
+
+    // 获取收款码
+    getQRCode(money);
+
+    function getQRCode(money) {
+        $.ajax({
+            url: "../getQrcode.php",
+            type: 'POST',
+            data: {
+                money: money,
+                payType: $.cookie('payType'),
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.success) {
+                    $("#qr-pic").attr("src", "../" + data.qrcode);
+                } else {
+                    showMsg(data.message);
+                }
+            }
+        });
+    }
 
     $('#reamrkModal').on('hide.bs.modal', function () {
         countDown();
@@ -364,28 +387,6 @@
         }, 1000);
     }
 
-    // 固定金额红包
-    //const dir = "/assets/qr/alipay/" + Number(money).toFixed(2);
-    getQRCode(money);
-
-    function getQRCode(money) {
-        $.ajax({
-            url: "../getQrcode.php",
-            type: 'POST',
-            data: {
-                money: money,
-                payType: $.cookie('payType'),
-            },
-            dataType: 'json',
-            success: function (data) {
-                if (data.success) {
-                    $("#qr-pic").attr("src", "../" + data.qrcode);
-                } else {
-                    showMsg(data.message);
-                }
-            }
-        });
-    }
 
     function countTime() {
         var time = $.cookie('time');

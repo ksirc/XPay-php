@@ -43,11 +43,11 @@
         ];
         $Pay->setPayId($result['id']);
         //发送邮件通知管理员
-        $title = "测试邮件";
+        $title = "订单审核通知";
         $content = file_get_contents("mail.php");
         $content = $XPay->set_email($content,$Pay);
         //file_put_contents("tmp.php", $content);
-        $XPay->send_email($title, $content);
+        //$XPay->send_email($title, $content);
     }else{
         $success = false;
         $message = "订单创建失败！";

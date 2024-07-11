@@ -60,7 +60,7 @@
                                 </p>
                                 <div class="img-box">
                                     <img class="pic" id="qr-pic"
-                                         src="/assets/qr/wechat/custom.png" alt="加载失败" width="168px"
+                                         src="/assets/qr/Wechat/custom.png" alt="加载失败" width="168px"
                                          height="168px" />
                                     <div class="timeout" style="display: none">二维码已过期</div>
                                 </div>
@@ -200,10 +200,33 @@
         countDown();
         countTime();
     }*/
-    path="/assets/qr/wechat/"+Number(money).toFixed(2)+"/"+"<?php echo rand(1,10);?>"+".png";
-    $("#qr-pic").attr("src",path);
-    countDown();
-    countTime();
+    getQRCode(money);
+
+    function getQRCode(money) {
+        $.ajax({
+            url: "../getQrcode.php",
+            type: 'POST',
+            data: {
+                money: money,
+                payType: $.cookie('payType'),
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.success) {
+                    $("#qr-pic").attr("src", "../" + data.qrcode);
+                    $("#reamrkModal").modal('show');
+                    // 自定义金额显示需填写订单标识
+                    $(".payNum").html(num);
+                    //显示
+                    $("#showreamrk").css("display","block");
+                    countDown();
+                    countTime();
+                } else {
+                    showMsg(data.message);
+                }
+            }
+        });
+    }
 
     $('#reamrkModal').on('hide.bs.modal', function () {
         countDown();
@@ -281,7 +304,6 @@
             },
             dataType: 'json',
             success:function (data) {
-                //console.log(data);
                 if(data.success==true){
                     if(data.result==1){
                         showMsg("恭喜您已成功支付 "+Number(money).toFixed(2)+" 元，感谢您的捐赠，请查收通知邮件，若长时间未收到请检查垃圾邮件或进行反馈！");

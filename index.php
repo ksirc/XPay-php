@@ -31,32 +31,9 @@
 </head>
 
 <?php
-require 'config.php';
-
-//查询角色信息
-if (!empty($_GET['serverId']) && !empty($_GET['actorid']) && !empty($_GET['amount'])) {
-    $serverid = $_GET['serverId'];   //区服ID
-    $roleid = $_GET['actorid'];     //角色ID
-    $money = $_GET['amount'];       //支付金额
-
-    $db_name = $db[$serverid];  //获取数据库名
-
-    $conn = new mysqli($host, $db_user, $db_passwd, $db_name, $db_port);
-    // 检测连接
-    if ($conn->connect_error) {
-        die("连接失败: " . $conn->connect_error);
-    }
-
-    $sql99 = "SELECT * FROM `actors` WHERE actorid = '{$roleid}'  limit 1"; //查询角色信息
-
-    $result = mysqli_query($conn, $sql99);
-    $row = mysqli_fetch_assoc($result);
-
-    $username = $row['actorname'];
-
-    $out_trade_no = date("YmdHis") . mt_rand(100, 999);
-}
-
+$serverid = $_GET['serverId'];   //区服ID
+$nickname = $_GET['nickname'];     //角色ID
+$money = $_GET['money'];       //支付金额
 ?>
 
 <body data-spy="scroll" data-target=".navbar-collapse" style="background:#f1f2f7">
@@ -88,7 +65,7 @@ if (!empty($_GET['serverId']) && !empty($_GET['actorid']) && !empty($_GET['amoun
                                         <div class="form-group">
                                             <label for="nickName" class="control-label col-sm-3">昵称<span class="red-txt"> *</span></label>
                                             <div class="col-sm-9">
-                                                <input class="form-control" id="nickName" name="nickName" maxlength="20" type="text" placeholder="请输入您的昵称" value="<?php echo !empty($username)? $username : ""; ?>" <?php if(!empty($username)) echo "readonly" ?> />
+                                                <input class="form-control" id="nickName" name="nickName" maxlength="20" type="text" placeholder="请输入您的昵称" value="<?php echo !empty($nickname)? $nickname : ""; ?>" <?php if(!empty($nickname)) echo "readonly" ?> />
                                             </div>
                                         </div>
 
@@ -353,6 +330,7 @@ if (!empty($_GET['serverId']) && !empty($_GET['actorid']) && !empty($_GET['amoun
                     // 存入num和id
                     $.cookie('payNum', data.result.payNum);
                     $.cookie('payId', data.result.id);
+                    $.cookie('payType', payType);
                     $("#submit").removeAttr("disabled");
                     $("#submit").val("立刻支付");
                     // 跳转支付页面

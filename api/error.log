@@ -1,0 +1,16 @@
+money: 20 payType: Alipay qrFile: ../../assets/qr/Alipay/custom.pngmoney: 20 payType: Alipay qrFile: ../../assets/qr/Alipay/custom.png
+ money: 20 payType: Alipay qrFile: ../../assets/qr/Alipay/custom.png
+ money: 20 payType: Alipay qrFile: ../../assets/qr/Alipay/custom.png
+ money: 20 payType: Alipay qrFile: ../../assets/qr/Alipay/custom.png
+money: 20 payType: Alipay qrFile: ../../assets/qr/Alipay/custom.pngfile_exists: 
+money: 20 payType: Alipay dir: ../../assets/qr/Alipay/20/file_exists: 
+dir: ../../assets/qr/Alipay/20/  目录是否存在  是否是目录
+dir: ../../assets/qr/Alipay/20  目录是否存在  是否是目录
+dir: /assets/qr/Alipay/20  目录是否存在  是否是目录
+dir: /assets/qr/Alipay/20/  目录是否存在  是否是目录
+dir: ../../assets/qr/Alipay/20/  目录是否存在  是否是目录
+dir: ../assets/qr/Alipay/20/  目录是否存在  是否是目录
+dir: ../../assets/qr/Alipay/20.00/  目录是否存在  是否是目录
+dir: ../assets/qr/Alipay/20.00/  目录是否存在1  是否是目录1
+dir: ../assets/qr/Alipay/20.00/  目录是否存在1  是否是目录1
+dir: ../assets/qr/Alipay/20.00  目录是否存在1  是否是目录1

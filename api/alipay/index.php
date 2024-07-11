@@ -67,7 +67,7 @@
                                 <!--<div id="qr-pic" style="width: 168px;height: 168px;margin-top:3px"/>-->
                                 <div class="img-box" style="flex-direction: column;">
                                     <img class="pic" id="qr-pic"
-                                    src="/assets/qr/alipay/custom.png"
+                                    src="/assets/qr/Alipay/custom.png"
                                     alt="加载失败" width="160px" height="160px"/>
                                     <div class="explain">
                                         <img class="fn-left"
@@ -364,9 +364,28 @@
         }, 1000);
     }
 
-    // 固定金额红包临时
-    const dir = "/assets/qr/alipay/" + Number(money).toFixed(2) + "/" + "<?php echo rand(1, 10);?>" + ".png";
-    $("#qr-pic").attr("src", dir);
+    // 固定金额红包
+    //const dir = "/assets/qr/alipay/" + Number(money).toFixed(2);
+    getQRCode(money);
+
+    function getQRCode(money) {
+        $.ajax({
+            url: "../getQrcode.php",
+            type: 'POST',
+            data: {
+                money: money,
+                payType: $.cookie('payType'),
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.success) {
+                    $("#qr-pic").attr("src", "../" + data.qrcode);
+                } else {
+                    showMsg(data.message);
+                }
+            }
+        });
+    }
 
     function countTime() {
         var time = $.cookie('time');
